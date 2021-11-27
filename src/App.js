@@ -2,6 +2,10 @@ import React from 'react';
 import { ArrestType } from './reportType/arrestType'
 import { AmendeType } from './reportType/amendeType'
 import { FourriereType } from './reportType/fourriereType'
+import { TirType } from './reportType/tirType'
+import { IncidentType } from './reportType/incidentType';
+import { SaisieType } from './reportType/saisieType';
+import logo from './img/logo_lspd.png'
 export class App extends React.Component {
 
     constructor (props) {
@@ -42,12 +46,33 @@ export class App extends React.Component {
         localStorage.setItem('matricule', this.state.matricule);
     }
 
+    submitForum = () => {
+        var brRegex = /<br\s*?>/gi;
+        navigator.clipboard.writeText(document.getElementById("resultat").innerHTML.replace(brRegex, "\r\n"))
+
+        // Remove localstorage
+        localStorage.removeItem('prenom');
+        localStorage.removeItem('nom');
+        localStorage.removeItem('grade');
+        localStorage.removeItem('matricule');
+
+        // Add localStorage
+        localStorage.setItem('prenom', this.state.prenom);
+        localStorage.setItem('nom', this.state.nom);
+        localStorage.setItem('grade', this.state.grade);
+        localStorage.setItem('matricule', this.state.matricule);
+    }
+
     render () {
         return (
             <div className="container mb-5">
                 <form>
                     <div className="row mt-5">
                         <div className="col-md-6">
+                            <div className="text-center">
+                                <img src={logo} alt="logo LSPD" className="img-fluid" />
+                                <h1 className="my-5 h4">Générateur de rapport LSPD</h1>
+                            </div>
                             <h2 className="h5">Informations de l'agent</h2>
                             <div className="row">
                                 <div className="col-md-6">
@@ -105,6 +130,9 @@ export class App extends React.Component {
                                 <option value="Arrestation">Rapport d'arrestation</option>
                                 <option value="Amende">Rapport d'amende</option>
                                 <option value="Fourriere">Rapport de fourrière</option>
+                                <option value="Tir">Rapport de tirs</option>
+                                <option value="Incident">Rapport d'incident</option>
+                                <option value="Saisie">Rapport de saisie</option>
                             </select>
 
                             {/* <div className="row mt-5">
@@ -139,14 +167,35 @@ export class App extends React.Component {
                                 <FourriereType data={this.state} />
                             }
 
+                            {this.state.rapport_type === 'Tir' &&
+                                <TirType data={this.state} />
+                            }
+
+                            {this.state.rapport_type === 'Incident' &&
+                                <IncidentType data={this.state} />
+                            }
+
+                            {this.state.rapport_type === 'Saisie' &&
+                                <SaisieType data={this.state} />
+                            }
+
                             <hr className="my-5" />
 
-                            <div className="d-grid mt-3">
-                                <button type="button" className="btn btn-primary" onClick={this.submitButton}>
-                                    Copier le code
-                                </button>
-                            </div>
-                            
+                            {(this.state.rapport_type === 'Arrestation' || this.state.rapport_type === 'Amende' || this.state.rapport_type === 'Fourriere') &&
+                                <div className="d-grid mt-3">
+                                    <button type="button" className="btn btn-primary" onClick={this.submitButton}>
+                                        Copier le code
+                                    </button>
+                                </div>
+                            }
+
+                            {(this.state.rapport_type === 'Tir' || this.state.rapport_type === 'Incident' || this.state.rapport_type === 'Saisie') &&
+                                <div className="d-grid mt-3">
+                                    <button type="button" className="btn btn-primary" onClick={this.submitForum}>
+                                        Copier le code
+                                    </button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </form>
