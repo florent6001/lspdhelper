@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.js": "/lspdhelper/static/js/main.1cd69377.chunk.js",
-    "main.js.map": "/lspdhelper/static/js/main.1cd69377.chunk.js.map",
+    "main.js": "/lspdhelper/static/js/main.e44017c8.chunk.js",
+    "main.js.map": "/lspdhelper/static/js/main.e44017c8.chunk.js.map",
     "runtime-main.js": "/lspdhelper/static/js/runtime-main.583dc183.js",
     "runtime-main.js.map": "/lspdhelper/static/js/runtime-main.583dc183.js.map",
     "static/js/2.a96aacfa.chunk.js": "/lspdhelper/static/js/2.a96aacfa.chunk.js",
     "static/js/2.a96aacfa.chunk.js.map": "/lspdhelper/static/js/2.a96aacfa.chunk.js.map",
     "index.html": "/lspdhelper/index.html",
-    "static/js/2.a96aacfa.chunk.js.LICENSE.txt": "/lspdhelper/static/js/2.a96aacfa.chunk.js.LICENSE.txt"
+    "static/js/2.a96aacfa.chunk.js.LICENSE.txt": "/lspdhelper/static/js/2.a96aacfa.chunk.js.LICENSE.txt",
+    "static/media/logo_lspd.5fd48b16.png": "/lspdhelper/static/media/logo_lspd.5fd48b16.png"
   },
   "entrypoints": [
     "static/js/runtime-main.583dc183.js",
     "static/js/2.a96aacfa.chunk.js",
-    "static/js/main.1cd69377.chunk.js"
+    "static/js/main.e44017c8.chunk.js"
   ]
 }
