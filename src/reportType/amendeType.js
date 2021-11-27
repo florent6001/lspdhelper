@@ -59,7 +59,7 @@ export class AmendeType extends React.Component {
                 </div>
 
                 <hr className="my-5" />
-                <p>Lien pour poster la demande : <a href={"https://mdc-fr.gta.world/record/" + this.state.nom_suspect}>https://mdc-fr.gta.world/record/{this.state.nom_suspect}</a></p>
+                <p>Lien pour poster la demande : <a href={"https://mdc-fr.gta.world/record/" + this.state.nom_suspect} target="_blank" rel="noreferrer">https://mdc-fr.gta.world/record/{this.state.nom_suspect}</a></p>
             </>
         )
     }

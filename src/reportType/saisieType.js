@@ -55,7 +55,7 @@ export class SaisieType extends React.Component {
                 </div>
 
                 <hr className="my-5" />
-                <p>Lien pour poster la demande : <a href={"https://pd.gta.world/posting.php?mode=post&f=815"}>https://pd.gta.world/posting.php?mode=post&f=815</a></p>
+                <p>Lien pour poster la demande : <a href={"https://pd.gta.world/posting.php?mode=post&f=815"} target="_blank" rel="noreferrer">https://pd.gta.world/posting.php?mode=post&f=815</a></p>
             </>
         )
     }

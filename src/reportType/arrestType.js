@@ -65,8 +65,8 @@ export class ArrestType extends React.Component {
                 </div>
 
                 <hr className="my-5" />
-                <p>Lien pour poster la demande : <a href={"https://mdc-fr.gta.world/record/" + this.state.nom_suspect}>https://mdc-fr.gta.world/record/{this.state.nom_suspect}</a> <br />
-                Lien pour poster la demande de mise en accusation : <a href={"https://forum-fr.gta.world/forum/201-demandes-de-mise-en-accusation/?do=add&title=Demande%20de%20mise%20en%20accusation%20-%20" + this.state.nom_suspect}>https://forum-fr.gta.world/forum/201-demandes-de-mise-en-accusation/?do=add&title=Demande%20de%20mise%20en%20accusation%20-%20{this.state.nom_suspect}</a></p>
+                <p>Lien pour poster la demande : <a href={"https://mdc-fr.gta.world/record/" + this.state.nom_suspect} target="_blank" rel="noreferrer">https://mdc-fr.gta.world/record/{this.state.nom_suspect}</a> <br />
+                Lien pour poster la demande de mise en accusation : <a href={"https://forum-fr.gta.world/forum/201-demandes-de-mise-en-accusation/?do=add&title=Demande%20de%20mise%20en%20accusation%20-%20" + this.state.nom_suspect} target="_blank" rel="noreferrer">https://forum-fr.gta.world/forum/201-demandes-de-mise-en-accusation/?do=add&title=Demande%20de%20mise%20en%20accusation%20-%20{this.state.nom_suspect}</a></p>
             </>
         )
     }
