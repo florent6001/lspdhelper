@@ -19,7 +19,8 @@ export class App extends React.Component {
             resultat: 'Merci de remplir le formulaire.',
             date: new Date().toISOString().slice(0, 10),
             heure: new Date().getHours() + ':' + new Date().getMinutes(),
-            lieu_interpellation: ''
+            lieu_interpellation: '',
+            mode: localStorage.getItem('mode')
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -63,9 +64,48 @@ export class App extends React.Component {
         localStorage.setItem('matricule', this.state.matricule);
     }
 
+    isDarkMode = () => {
+        if(localStorage.getItem('mode') === 'dark') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    darkMode = (e) => {
+        e.preventDefault();
+        if(this.isDarkMode()){
+            localStorage.removeItem('mode');
+            localStorage.setItem('mode', 'light');
+            this.setState({
+                mode: 'light'
+            })
+        } else {
+            localStorage.removeItem('mode');
+            localStorage.setItem('mode', 'dark');
+            this.setState({
+                mode: 'dark'
+            })
+        }
+    }
+
+    darkCSS = `
+        body { background-color: #2a2e33 !important; }
+        h1, h2 { color: #fff !important }
+        label { color: #fff !important }
+        input, select, textarea { background-color: #3C4858 !important; color: #fff !important; border: none !important }
+        hr { background-color: #fff !important}
+        a { color: #fff !important }
+        p { color: #fff !important }
+        p.alert { color: black !important }
+    `;
+
     render () {
         return (
             <div className="container mb-5">
+                {this.state.mode === 'dark' &&
+                    <style>{this.darkCSS}</style>
+                }
                 <form>
                     <div className="row mt-5">
                         <div className="col-md-6">
@@ -135,13 +175,13 @@ export class App extends React.Component {
                                 <option value="Saisie">Rapport de saisie</option>
                             </select>
 
-                            {/* <div className="row mt-5">
-                                <div className="col">                                 
-                                    <p className="alert alert-primary"><span style={{ textDecoration: 'underline' }}>Nouveauté</span> : Ajout du formulaire d'arrestation.</p>
-                                </div>
-                            </div> */}
-
                             <div className="row mt-5">
+                                <div className="col">                                 
+                                    <p className="alert alert-primary"><span style={{ textDecoration: 'underline' }}>Nouveauté</span> : Tous les formulaires sont maintenant disponible, le darkmode a également été ajouté.</p>
+                                </div>
+                            </div>
+
+                            <div className="row mt-1">
                                 <div className="col">
                                     <p className="alert alert-secondary">Idées d'amélioration par Discord : WaDi#2954</p>
                                 </div>
@@ -152,7 +192,10 @@ export class App extends React.Component {
                         </div>
 
                         <div className="col-md-6">
-                            <h2 className="h5">Rapport</h2>
+                            <div className="d-flex justify-content-between">
+                                <h2 className="h5">Rapport</h2>
+                                <a href="/" onClick={ (e) => this.darkMode(e) }>Activer / Désactiver le mode nuit</a>
+                            </div>
 
 
                             {this.state.rapport_type === 'Arrestation' &&

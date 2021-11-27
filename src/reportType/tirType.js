@@ -56,7 +56,7 @@ export class TirType extends React.Component {
                 </div>
 
                 <hr className="my-5" />
-                Lien pour poster la demande : <a href={"https://pd.gta.world/posting.php?mode=post&f=220"}>https://pd.gta.world/posting.php?mode=post&f=220</a>
+                <p>Lien pour poster la demande : <a href={"https://pd.gta.world/posting.php?mode=post&f=220"}>https://pd.gta.world/posting.php?mode=post&f=220</a></p>
             </>
         )
     }
