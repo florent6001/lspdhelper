@@ -11,7 +11,8 @@ export class IncidentType extends React.Component {
             identite_victimes: 'Néant',
             cause_deces: 'Néant',
             suspect_temoins: 'Néant',
-            section_annexe: ''
+            section_annexe: '',
+            rapport_detaille: ''
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -26,7 +27,11 @@ export class IncidentType extends React.Component {
     render () {
         return (
             <>
-                <p className="lead mb-2">Section des douilles</p>
+                <div className="form-group">
+                    <label htmlFor="rapport_detaille">Rapport détaillé (contexte, déroulement, conclusion)</label>
+                    <textarea type="text" id="rapport_detaille" name="rapport_detaille" value={ this.state.rapport_detaille } onChange={this.handleChange} className="form-control"></textarea>
+                </div>
+                <p className="lead mb-2 mt-3">Section des douilles</p>
                 <div className="form-group">
                     <label htmlFor="nombre_douilles">Nombre de douilles saisit</label>
                     <input type="text" id="nombre_douilles" name="nombre_douilles" value={ this.state.nombre_douilles } onChange={this.handleChange} className="form-control" />
@@ -66,6 +71,8 @@ export class IncidentType extends React.Component {
                     [b]Date et heure des faits :[/b] Le {new Date(this.props.data.date).toLocaleDateString('FR-fr') } à {this.props.data.heure.replace(':' , "h")} <br />
                     [b]Lieu :[/b] {this.props.data.lieu_interpellation}[/rapport-inc1] <br />
                     [rapport-inc2]<br />
+                    {this.state.rapport_detaille} <br /><br />
+                    [hr][/hr]<br />
                     [size=120]SECTION DES DOUILLES[/size] <br />
                     [b]Nombre d'éléments saisis :[/b] {this.state.nombre_douilles} <br />
                     [b]Catégorisations des éléments :[/b] {this.state.categorie_arme} <br />
