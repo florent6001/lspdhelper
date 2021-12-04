@@ -18,6 +18,11 @@ export class TirType extends React.Component {
         this.setState({
             [name]: e.target.value
         })
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
+    }
+
+    componentDidMount() {
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
     }
 
     render () {

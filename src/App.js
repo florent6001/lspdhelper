@@ -18,9 +18,10 @@ export class App extends React.Component {
             rapport_type: 'null',
             resultat: 'Merci de remplir le formulaire.',
             date: new Date().toISOString().slice(0, 10),
-            heure: new Date().getHours() + ':' + new Date().getMinutes(),
+            heure: ("0" + new Date().getHours()).slice(-2) + ':' + ("0" + new Date().getMinutes()).slice(-2),
             lieu_interpellation: '',
-            mode: localStorage.getItem('mode')
+            mode: localStorage.getItem('mode'),
+            apercu: localStorage.getItem('apercu')
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -33,18 +34,21 @@ export class App extends React.Component {
     }
 
     submitButton = () => {
-        navigator.clipboard.writeText(document.getElementById("resultat").innerHTML )
+        navigator.clipboard.writeText(document.getElementById("resultat").innerHTML)
+
         // Remove localstorage
         localStorage.removeItem('prenom');
         localStorage.removeItem('nom');
         localStorage.removeItem('grade');
         localStorage.removeItem('matricule');
+        localStorage.removeItem('apercu');
 
         // Add localStorage
         localStorage.setItem('prenom', this.state.prenom);
         localStorage.setItem('nom', this.state.nom);
         localStorage.setItem('grade', this.state.grade);
         localStorage.setItem('matricule', this.state.matricule);
+        localStorage.setItem('apercu', this.state.apercu);
     }
 
     submitForum = () => {
@@ -56,12 +60,14 @@ export class App extends React.Component {
         localStorage.removeItem('nom');
         localStorage.removeItem('grade');
         localStorage.removeItem('matricule');
+        localStorage.removeItem('apercu');
 
         // Add localStorage
         localStorage.setItem('prenom', this.state.prenom);
         localStorage.setItem('nom', this.state.nom);
         localStorage.setItem('grade', this.state.grade);
         localStorage.setItem('matricule', this.state.matricule);
+        localStorage.setItem('apercu', this.state.apercu);
     }
 
     isDarkMode = () => {
@@ -69,6 +75,32 @@ export class App extends React.Component {
             return true;
         } else {
             return false;
+        }
+    }
+
+    apercuIsEnable = () => {
+        if(localStorage.getItem('apercu') === 'true') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    activerApercu = (e) => {
+        if(this.apercuIsEnable()){
+            localStorage.removeItem('apercu');
+            localStorage.setItem('apercu', 'false');
+            this.setState({
+                apercu: 'false'
+            })
+            console.log('on desactive')
+        } else {
+            console.log('on active')
+            localStorage.removeItem('apercu');
+            localStorage.setItem('apercu', 'true');
+            this.setState({
+                apercu: 'true'
+            })
         }
     }
 
@@ -98,22 +130,24 @@ export class App extends React.Component {
         a { color: #fff !important }
         p { color: #fff !important }
         p.alert { color: black !important }
+        .border-custom { border-color: rgba(255, 255, 255, 0.2) !important }
+        #apercu { color: #fff !important; }
     `;
 
     render () {
         return (
-            <div className="container mb-5">
+            <div className={this.state.apercu === 'true' ? 'container-fluid mt-5' : 'container mt-5'}>
                 {this.state.mode === 'dark' &&
                     <style>{this.darkCSS}</style>
                 }
                 <form>
                     <div className="row mt-5">
-                        <div className="col-md-6">
-                            <div className="text-center">
+                        <div className={this.state.apercu === 'true' ? 'col-lg-4' : 'col-lg-6'}>
+                            <div className="text-center d-flex justify-content-between px-5">
                                 <img src={logo} alt="logo LSPD" className="img-fluid" />
                                 <h1 className="my-5 h4">Générateur de rapport LSPD</h1>
                             </div>
-                            <h2 className="h5">Informations de l'agent</h2>
+                            <h2 className="h5 mt-5">Informations de l'agent</h2>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group mt-3">
@@ -175,9 +209,18 @@ export class App extends React.Component {
                                 <option value="Saisie">Rapport de saisie</option>
                             </select>
 
+                            <div className="form-check mt-4">
+                                <input className="form-check-input" type="checkbox" 
+                                defaultChecked={this.state.apercu === 'true'} onChange={(e) => this.activerApercu(e) } name="apercu" id="activer_apercu" value='true' />
+                                <label className="form-check-label" forhtml="activer_apercu">
+                                    Activer l'aperçu du rapport
+                                </label>
+                            </div>
+
                             <div className="row mt-5">
                                 <div className="col">                                 
-                                    <p className="alert alert-primary"><span style={{ textDecoration: 'underline' }}>Nouveauté</span> : Tous les formulaires sont maintenant disponible, le darkmode a également été ajouté.</p>
+                                    <p className="alert alert-primary"><span style={{ textDecoration: 'underline' }}>Nouveauté</span> : Lorsque vous cliquez sur "copier le code", un aperçu s'affichera dans la fenêtre de droite. Celui-ci est désactivable via la case à cocher "activer l'aperçu". L'aperçu peut être utilisé pour copier un rapport dans une DMEA sans avoir à copier le rapport depuis le MDC. <br /><br />
+                                    <span style={{ textDecoration: 'underline' }}>Correction</span> L'heure est maintenant toujours pré-rempli, dans certain cas ce n'était pas forcément le cas.</p>
                                 </div>
                             </div>
 
@@ -191,7 +234,7 @@ export class App extends React.Component {
 
                         </div>
 
-                        <div className="col-md-6">
+                        <div className={this.state.apercu === 'true' ? 'col-lg-4' : 'col-lg-6'}>
                             <div className="d-flex justify-content-between">
                                 <h2 className="h5">Rapport</h2>
                                 <a href="/" onClick={ (e) => this.darkMode(e) }>Activer / Désactiver le mode nuit</a>
@@ -239,6 +282,9 @@ export class App extends React.Component {
                                     </button>
                                 </div>
                             }
+                        </div>
+                        <div className="col-lg-4 border-custom px-3 py-3" id="apercu">
+                        {/* <div className={this.state.apercu === 'true' ? 'col-lg-4 border-custom px-3 py-3' : 'd-none'} id="apercu"> */}
                         </div>
                     </div>
                 </form>

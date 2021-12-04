@@ -17,11 +17,16 @@ export class IncidentType extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentDidMount() {
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
+    }
+    
     handleChange(e) {
         const name = e.target.name
         this.setState({
             [name]: e.target.value
         })
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
     }
 
     render () {

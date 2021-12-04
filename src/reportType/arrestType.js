@@ -15,11 +15,16 @@ export class ArrestType extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentDidMount() {
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
+    }
+    
     handleChange(e) {
         const name = e.target.name
         this.setState({
             [name]: e.target.value
         })
+        document.getElementById("apercu").innerHTML = document.getElementById("resultat").innerHTML
     }
 
     render () {
@@ -60,7 +65,7 @@ export class ArrestType extends React.Component {
                     <textarea id="description_preuve" name="description_preuve" value={ this.state.description_preuve } onChange={this.handleChange} className="form-control"></textarea>
                 </div>
 
-                <div className="resultat d-none" id="resultat">
+                <div className="resultat" id="resultat">
                     <span style={{ fontWeight:'bold' }}>{this.props.data.grade} {this.props.data.prenom} {this.props.data.nom} #{this.props.data.matricule}</span>, le <span style={{ fontWeight:'bold' }}>{new Date(this.props.data.date).toLocaleDateString('fr-FR')}</span> à <span style={{ fontWeight:'bold' }}>{this.props.data.heure.replace(':' , "h")}</span>. Procède à l'interpellation de <span style={{ fontWeight:'bold' }}>{this.state.nom_suspect.replace(/_/g , " ")}</span>, se déroulant sur <span style={{ fontWeight:'bold' }}>{this.props.data.lieu_interpellation}</span>.<br /><br /><u><span style={{ fontWeight:'bold' }}>Description des faits:</span></u><br />{this.state.description}<br /><br /><u><span style={{ fontWeight:'bold' }}>Agents supplémentaires:</span></u><br />{this.state.agents_supplementaires}<br /><br /><u><span style={{ fontWeight:'bold' }}>Preuves de toute forme:</span></u><br />{this.state.preuves}<br /><br /><u><span style={{ fontWeight:'bold' }}>Dashboard Camera:</span></u><br /><span style={{ color: '#9944dd' }}>*</span> {this.state.description_preuve} <span style={{color: '#9944dd' }}>*</span><br /><br /><br /><span style={{ color: '#9944dd' }}>(( </span> <span style={{ fontWeight:'bold' }}>@{this.state.identifier}</span> <span style={{ color: '#9944dd' }}>))</span>
                 </div>
 
