@@ -283,9 +283,10 @@ export class App extends React.Component {
                                 </div>
                             }
                         </div>
-                        <div className="col-lg-4 border-custom px-3 py-3" id="apercu">
-                        {/* <div className={this.state.apercu === 'true' ? 'col-lg-4 border-custom px-3 py-3' : 'd-none'} id="apercu"> */}
-                        </div>
+                        <div className={this.state.apercu === 'true' ? 'col-lg-4 border-custom px-3 py-3' : 'd-none'} id="apercu">
+                        {this.state.apercu === 'true' &&
+                         </div>
+                        }
                     </div>
                 </form>
             </div>
