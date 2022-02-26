@@ -1,10 +1,7 @@
 import React from 'react';
 import { ArrestType } from './reportType/arrestType'
-import { AmendeType } from './reportType/amendeType'
-import { FourriereType } from './reportType/fourriereType'
 import { TirType } from './reportType/tirType'
 import { IncidentType } from './reportType/incidentType';
-import { SaisieType } from './reportType/saisieType';
 import logo from './img/logo_lspd.png'
 export class App extends React.Component {
 
@@ -202,11 +199,8 @@ export class App extends React.Component {
                             <select className="form-select mt-3" value={this.state.rapport_type} onChange={this.handleChange} name="rapport_type">
                                 <option value="null">Sélectionner un type de rapport</option>
                                 <option value="Arrestation">Rapport d'arrestation</option>
-                                <option value="Amende">Rapport d'amende</option>
-                                <option value="Fourriere">Rapport de fourrière</option>
                                 <option value="Tir">Rapport de tirs</option>
                                 <option value="Incident">Rapport d'incident</option>
-                                <option value="Saisie">Rapport de saisie</option>
                             </select>
 
                             <div className="form-check mt-4">
@@ -219,8 +213,12 @@ export class App extends React.Component {
 
                             <div className="row mt-5">
                                 <div className="col">                                 
-                                    <p className="alert alert-primary"><span style={{ textDecoration: 'underline' }}>Nouveauté</span> : Lorsque vous cliquez sur "copier le code", un aperçu s'affichera dans la fenêtre de droite. Celui-ci est désactivable via la case à cocher "activer l'aperçu". L'aperçu peut être utilisé pour copier un rapport dans une DMEA sans avoir à copier le rapport depuis le MDC. <br /><br />
-                                    <span style={{ textDecoration: 'underline' }}>Correction</span> L'heure est maintenant toujours pré-rempli, dans certain cas ce n'était pas forcément le cas.</p>
+                                    <p className="alert alert-primary">
+                                        <span style={{ textDecoration: 'underline'}}>Mise à jours du 26/02/22 : </span><br /><br />
+                                        <span style={{ textDecoration: 'underline'}}>Modification</span> : Modification du formulaire d'arrestation<br />
+                                        <span style={{ textDecoration: 'underline'}}>Supression</span> : Fin des rapports de saisit, de fourrière et d'amende (plus utilisé)<br />
+                                        <span style={{ textDecoration: 'underline' }}>Correction</span> : L'aperçu du rapport n'est plus affiché en dessous lorsqu'il est désactivé.
+                                    </p>
                                 </div>
                             </div>
 
@@ -245,13 +243,6 @@ export class App extends React.Component {
                                 <ArrestType data={this.state} />
                             }
 
-                            {this.state.rapport_type === 'Amende' &&
-                                <AmendeType data={this.state} />
-                            }
-
-                            {this.state.rapport_type === 'Fourriere' &&
-                                <FourriereType data={this.state} />
-                            }
 
                             {this.state.rapport_type === 'Tir' &&
                                 <TirType data={this.state} />
@@ -261,13 +252,9 @@ export class App extends React.Component {
                                 <IncidentType data={this.state} />
                             }
 
-                            {this.state.rapport_type === 'Saisie' &&
-                                <SaisieType data={this.state} />
-                            }
-
                             <hr className="my-5" />
 
-                            {(this.state.rapport_type === 'Arrestation' || this.state.rapport_type === 'Amende' || this.state.rapport_type === 'Fourriere') &&
+                            {(this.state.rapport_type === 'Arrestation') &&
                                 <div className="d-grid mt-3">
                                     <button type="button" className="btn btn-primary" onClick={this.submitButton}>
                                         Copier le code
@@ -275,7 +262,7 @@ export class App extends React.Component {
                                 </div>
                             }
 
-                            {(this.state.rapport_type === 'Tir' || this.state.rapport_type === 'Incident' || this.state.rapport_type === 'Saisie') &&
+                            {(this.state.rapport_type === 'Tir' || this.state.rapport_type === 'Incident') &&
                                 <div className="d-grid mt-3">
                                     <button type="button" className="btn btn-primary" onClick={this.submitForum}>
                                         Copier le code
@@ -283,10 +270,7 @@ export class App extends React.Component {
                                 </div>
                             }
                         </div>
-                        <div className={this.state.apercu === 'true' ? 'col-lg-4 border-custom px-3 py-3' : 'd-none'} id="apercu">
-                        {this.state.apercu === 'true' &&
-                         </div>
-                        }
+                        <div className={this.state.apercu === 'true' ? 'col-lg-4 border-custom px-3 py-3' : 'd-none'} id="apercu"></div>
                     </div>
                 </form>
             </div>
